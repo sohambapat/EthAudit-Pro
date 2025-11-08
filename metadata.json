@@ -1,0 +1,5 @@
+{
+  "name": "EthAudit Pro",
+  "description": "An AI-powered multi-agent system that automatically audits Ethereum smart contracts for vulnerabilities, suggests fixes, and allows users to apply patches. This app simulates the agent workflow using the Gemini API for analysis.",
+  "requestFramePermissions": []
+}
