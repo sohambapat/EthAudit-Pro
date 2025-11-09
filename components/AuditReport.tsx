@@ -68,9 +68,10 @@ interface AuditReportProps {
   selectedChanges: Set<number>;
   setSelectedChanges: React.Dispatch<React.SetStateAction<Set<number>>>;
   onApplyPatches: () => void;
+  onReset: () => void;
 }
 
-const AuditReport: React.FC<AuditReportProps> = ({ vulnerabilities, selectedChanges, setSelectedChanges, onApplyPatches }) => {
+const AuditReport: React.FC<AuditReportProps> = ({ vulnerabilities, selectedChanges, setSelectedChanges, onApplyPatches, onReset }) => {
   
   const handleToggle = (id: number) => {
     setSelectedChanges(prev => {
@@ -90,6 +91,14 @@ const AuditReport: React.FC<AuditReportProps> = ({ vulnerabilities, selectedChan
         <div className="text-green-400 w-16 h-16 mx-auto mb-4"><CheckIcon/></div>
         <h2 className="text-2xl font-bold text-white">No Vulnerabilities Found!</h2>
         <p className="text-gray-400 mt-2">The AI agent did not find any common vulnerabilities in this contract.</p>
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={onReset}
+            className="bg-gray-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-200 flex items-center text-lg"
+          >
+            Start New Audit
+          </button>
+        </div>
       </div>
     );
   }
@@ -107,10 +116,17 @@ const AuditReport: React.FC<AuditReportProps> = ({ vulnerabilities, selectedChan
           />
         ))}
       </div>
-      <div className="mt-8 flex justify-end">
+      <div className="mt-8 flex justify-end items-center gap-4">
+        <button
+          onClick={onReset}
+          className="bg-gray-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-200 flex items-center text-lg"
+        >
+          Start Over
+        </button>
         <button
           onClick={onApplyPatches}
-          className="bg-teal-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-400 transition-colors duration-200 flex items-center text-lg"
+          disabled={selectedChanges.size === 0}
+          className="bg-teal-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-400 disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors duration-200 flex items-center text-lg"
         >
           Apply ({selectedChanges.size}) Selected Patches
         </button>

@@ -80,13 +80,24 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gray-900 text-gray-200 font-sans flex flex-col items-center p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-6xl">
         <header className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">Smart Contract Auditor</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">Smart Contract Code Auditor</h1>
           <p className="text-lg text-teal-400">Powered by a Multi-Agent System & Gemini</p>
         </header>
 
         <main className="bg-gray-800 rounded-xl shadow-2xl p-6">
           <AgentStatus state={auditState} />
           
+          {isAuditing && (
+            <div className="text-center my-4">
+              <button
+                onClick={handleReset}
+                className="bg-red-700 text-white font-bold py-2 px-5 rounded-lg hover:bg-red-600 transition-colors duration-200"
+              >
+                Cancel Audit
+              </button>
+            </div>
+          )}
+
           {error && (
             <div className="bg-red-900 border border-red-500 text-red-200 px-4 py-3 rounded-md my-4" role="alert">
               <strong className="font-bold">Error: </strong>
@@ -104,6 +115,7 @@ const App: React.FC = () => {
               selectedChanges={selectedChanges}
               setSelectedChanges={setSelectedChanges}
               onApplyPatches={handleApplyPatches}
+              onReset={handleReset}
             />
           )}
 
@@ -112,8 +124,8 @@ const App: React.FC = () => {
           )}
         </main>
         <footer className="text-center mt-8 text-gray-600">
-          <p>This application simulates a multi-agent workflow. Smart contract audits should always be performed by qualified professionals.</p>
-          <p>&copy; {new Date().getFullYear()} AI Systems Inc.</p>
+          <p>This application simulates an automated audit of smart contract code. Full security audits should always be performed by qualified professionals.</p>
+          <p>&copy; {new Date().getFullYear()} AI Systems Inc. All rights reserved.</p>
         </footer>
       </div>
     </div>
